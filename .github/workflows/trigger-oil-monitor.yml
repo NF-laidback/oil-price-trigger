@@ -1,0 +1,24 @@
+name: Trigger Oil Price Monitor
+
+on:
+  schedule:
+      # Every hour at minute 30, between 10:00 AM - 8:30 PM IST (4:30 AM - 3:00 PM UTC)
+          # This runs on Mon-Fri only
+              - cron: '30 4-14 * * 1-5'
+                workflow_dispatch:
+                    # Allow manual triggering from GitHub UI
+
+                    jobs:
+                      trigger:
+                          runs-on: ubuntu-latest
+                              steps:
+                                    - name: Trigger crude oil monitor workflow
+                                            run: |
+                                                      curl -X POST \
+                                                                  -H "Accept: application/vnd.github.v3+json" \
+                                                                              -H "Authorization: token ${{ secrets.TRIGGER_TOKEN }}" \
+                                                                                          https://api.github.com/repos/NF-laidback/crude_price_monitor/dispatches \
+                                                                                                      -d '{"event_type":"check-oil-price"}'
+                                                                                                            
+                                                                                                                  - name: Wait for workflow to complete
+                                                                                                                          run: echo "Workflow triggered successfully! Check NF-laidback/crude_price_monitor/actions for status"
