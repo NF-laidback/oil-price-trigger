@@ -20,5 +20,5 @@ on:
                                                                                           https://api.github.com/repos/NF-laidback/crude_price_monitor/dispatches \
                                                                                                       -d '{"event_type":"check-oil-price"}'
                                                                                                             
-                                                                                                                  - name: Wait for workflow to complete
-                                                                                                                          run: echo "Workflow triggered successfully! Check NF-laidback/crude_price_monitor/actions for status"
+                                                                                                                  - name: Log completion
+                                                                                                                          run: echo "Workflow triggered successfully! Check crude_price_monitor/actions for status"
